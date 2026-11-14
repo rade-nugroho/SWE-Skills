@@ -1,0 +1,9 @@
+{
+  "name": "swe-skills",
+  "version": "0.1.0",
+  "description": "Software engineering workflow skill: size the task, requirements, design when warranted, smallest complete change, test, verify, honest report.",
+  "author": { "name": "rade-nugroho" },
+  "repository": "https://github.com/rade-nugroho/SWE-Skills",
+  "license": "Apache-2.0",
+  "keywords": ["software-engineering", "system-design", "testing", "workflow"]
+}
