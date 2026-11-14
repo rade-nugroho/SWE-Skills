@@ -1,0 +1,12 @@
+{
+  "name": "swe-skills",
+  "description": "Software Engineer Agent skills.",
+  "owner": { "name": "rade-nugroho" },
+  "plugins": [
+    {
+      "name": "swe-skills",
+      "source": "./",
+      "description": "Software engineering workflow skill with design, testing and operations references."
+    }
+  ]
+}

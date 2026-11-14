@@ -1,0 +1,59 @@
+{
+  "skill_name": "software-engineer",
+  "evals": [
+    {
+      "id": 1,
+      "name": "bugfix-negative-total",
+      "prompt": "customers using the STAFF120 promo code are getting negative order totals at checkout and we're basically paying them to take stuff 😬 can you fix it? code's in this repo",
+      "expected_output": "Small task: reproduces the bug, fixes the root cause in shared pricing code (discount can't push total below zero / percent clamped or rejected), adds a regression test, runs the full suite, reports what changed and what was verified, flags the STAFF120 config question. No design doc.",
+      "files": [
+        "files/shop"
+      ],
+      "assertions": [
+        "Full test suite passes in the final repo",
+        "STAFF120 checkout no longer produces a negative total",
+        "A regression test exercising a coupon over 100% was added",
+        "Fix is in shared pricing code (pricing.py), not only a promo-config edit",
+        "Final report states the test command run and its result",
+        "Final report flags the STAFF120 promo configuration as a question for the user/ops",
+        "No requirements/design write-up produced for this small fix (no extra design docs, no FR/NFR section)"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "feature-stock-reservations",
+      "prompt": "can you add stock reservations to our inventory module? when a customer starts checkout we should reserve the qty for their order id. if they don't pay within 15 minutes the reservation should expire and the stock goes back. when they pay we commit it, which turns it into a real deduction. keep it in-memory like the rest of the module.",
+      "expected_output": "Medium task: brief requirements/acceptance criteria and LLD, reserve/commit/release with expiry, injectable clock for deterministic tests, tests for acceptance criteria + boundaries (exactly 15 min, insufficient stock, double commit, expired commit), existing tests still pass, report with verification.",
+      "files": [
+        "files/inventory"
+      ],
+      "assertions": [
+        "Full test suite passes in the final repo",
+        "Original tests in tests/test_inventory.py are unchanged",
+        "Reserve reduces available stock; commit makes it a permanent deduction; expiry returns stock",
+        "Time is injectable (clock/now parameter) and tests don't use time.sleep",
+        "Tests cover the expiry boundary, insufficient stock on reserve, and committing an expired or unknown reservation",
+        "Reply includes acceptance criteria or a requirements list plus a brief design/plan",
+        "Final report states the test command run and its result"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "design-url-shortener",
+      "prompt": "We're building an internal URL shortener at work. Expect ~100M new short links per month, reads are about 100x writes, links never expire unless the owner deletes them, and we want custom aliases. Can you write up the high-level design and the low-level design for the core shortening service? Put it in design.md.",
+      "expected_output": "Large design deliverable in design.md: FR + measurable NFR, back-of-envelope estimates, API, data model + storage choice, Mermaid HLD diagram, deep dive on ID generation and alias collisions, caching for read-heavy load, LLD classes/interfaces with diagram, trade-offs, failure modes. No production code.",
+      "files": [],
+      "assertions": [
+        "design.md exists and no production source code was written",
+        "Non-functional requirements have numeric targets (latency and availability)",
+        "Back-of-envelope estimates for write QPS, read QPS, and storage",
+        "Contains a Mermaid high-level architecture diagram",
+        "Defines the API (create, redirect, delete at minimum)",
+        "Deep dive on short-code generation and custom-alias collision handling",
+        "Uses a cache on the read/redirect path, justified by the read:write ratio",
+        "Low-level design names classes/interfaces with responsibilities (diagram or signatures)",
+        "Covers trade-offs and failure modes"
+      ]
+    }
+  ]
+}
